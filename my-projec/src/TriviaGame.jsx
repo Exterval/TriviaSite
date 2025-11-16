@@ -67,9 +67,9 @@ export default function TriviaGame(props) {
             <h2 className="text-zinc-100 text-4xl text-center m-3 font-serif" style={{transition: "0.7s ease-out"}}>You got: <span style={{color: score > 5 ? "lime" : "red", transition: "1s ease-in"}}>{score}</span> right!</h2>
             <p className="text-center text-3xl">Here are your wrong answers: </p>
               {wrongAnswers.map((item)=>(
-                <div className="flex flex-col justify-center my-5" style={{transition: "0.5s ease-out"}}>
-                  <h3 className="text-center text-3xl text-white" style={{transition: "0.7s ease-out"}}>Question: {properString(item.question)}</h3>
-                  <p className="text-center text-xl text-white" style={{transition: "0.7s ease-out"}}>Right Answer: {properString(item.correct_answer)}</p>
+                <div className="flex flex-col justify-center my-5" style={{transition: "1.0s ease-out"}}>
+                  <h3 className="text-center text-3xl text-white" style={{transition: "1.5s ease-out"}}>Question: {properString(item.question)}</h3>
+                  <p className="text-center text-xl text-white" style={{transition: "1.5s ease-out"}}>Right Answer: {properString(item.correct_answer)}</p>
                 </div>
               ))}
           </div>
