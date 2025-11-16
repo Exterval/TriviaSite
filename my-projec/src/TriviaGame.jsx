@@ -8,11 +8,12 @@ export default function TriviaGame(props) {
     let [count, setCount] = useState(0);
     let [choices, setChoices] = useState([]);   
     let [score, setScore] = useState(0);
+    let [wrongAnswers, setWrongAnswers] = useState([]);
 
     useEffect(() => {
         if(count >= 10){
           setTriviaDone(true);
-           return alert('There are no more questions.');
+           return alert('Thank you for playing! :)');
         }   
         const currQues = questions[count];
         if (!currQues) return;
@@ -33,6 +34,8 @@ export default function TriviaGame(props) {
         if(String(event.target.textContent) === properString(currentQuestion.correct_answer)){
            // This will trigger the useEffect above
             setScore(s => s+1);
+        }else{
+            setWrongAnswers([currentQuestion.])
         }
         setCount(c => c + 1);
     }
@@ -52,7 +55,7 @@ export default function TriviaGame(props) {
                     </h2>
                           <div className="flex flex-row justify-center my-5">
                               {choices.map((choice, ind) => (
-                                    <button key={ind} className="bg-zinc-100 p-3 mx-2 rounded-md hover:bg-zinc-300 hover:-translate-y-0.5 hover:shadow-lg shadow-zinc-600" onClick={(e) => handleAssessAnswer(e)} style={{transition: '0.5s ease'}}>
+                                    <button key={ind} className="bg-zinc-100 p-2 mx-2 rounded-md hover:bg-zinc-300 hover:-translate-y-0.5 hover:shadow-lg shadow-zinc-600" onClick={(e) => handleAssessAnswer(e)} style={{transition: '0.5s ease'}}>
                                       {properString(choice)}
                                       </button>
                               ))}
