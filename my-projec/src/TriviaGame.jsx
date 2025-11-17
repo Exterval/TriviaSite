@@ -31,7 +31,9 @@ export default function TriviaGame(props) {
 
     //check if answer is right or no
     function handleAssessAnswer(event){
-        if(String(event.target.textContent) === properString(currentQuestion.correct_answer)){
+        const choice = properString(currentQuestion.correct_answer);
+        setCurrentQuestion(cQ => ({...cQ, userChoice: choice}))
+        if(String(event.target.textContent) === choice){
            // This will trigger the useEffect above
             setScore(s => s+1);
         }else{
@@ -65,11 +67,11 @@ export default function TriviaGame(props) {
           <div className="@container bg-zinc-700 flex flex-col m-auto" style={{transition: "0.5s ease-out"}}>
             <h1 className="text-zinc-100 text-6xl text-center m-3 font-serif" style={{transition: "0.7s ease-out"}}>Trivia done!</h1>
             <h2 className="text-zinc-100 text-4xl text-center m-3 font-serif" style={{transition: "0.7s ease-out"}}>You got: <span style={{color: score > 5 ? "lime" : "red", transition: "1s ease-in"}}>{score}</span> right!</h2>
-            <p className="text-center text-3xl">Here are your wrong answers: </p>
+            <p className="text-center text-3xl text-zinc-100">Here are your wrong answers: </p>
               {wrongAnswers.map((item)=>(
                 <div className="flex flex-col justify-center my-5" style={{transition: "1.0s ease-out"}}>
-                  <h3 className="text-center text-3xl text-white" style={{transition: "1.5s ease-out"}}>Question: {properString(item.question)}</h3>
-                  <p className="text-center text-xl text-white" style={{transition: "1.5s ease-out"}}>Right Answer: {properString(item.correct_answer)}</p>
+                  <h3 className="text-center text-xl text-zinc-100" style={{transition: "1.5s ease-out"}}>Question: {properString(item.question)}</h3>
+                  <p className="text-center text-md text-zinc-100" style={{transition: "1.5s ease-out"}}>Right Answer: <span className="text-lime-500">{properString(item.correct_answer)}</span></p>
                 </div>
               ))}
           </div>
