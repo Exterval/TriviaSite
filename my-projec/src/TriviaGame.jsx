@@ -31,13 +31,13 @@ export default function TriviaGame(props) {
 
     //check if answer is right or no
     function handleAssessAnswer(event){
-        const choice = properString(currentQuestion.correct_answer);
-        setCurrentQuestion(cQ => ({...cQ, userChoice: choice}))
-        if(String(event.target.textContent) === choice){
+        const choice = String(event.target.textContent);
+        const isCorrect = choice === properString(currentQuestion.correct_answer)
+        if(isCorrect){
            // This will trigger the useEffect above
             setScore(s => s+1);
         }else{
-            setWrongAnswers([...wrongAnswers,currentQuestion])
+            setWrongAnswers([...wrongAnswers,{...currentQuestion, user_choice: choice}])
         }
         setCount(c => c + 1);
     }
@@ -65,15 +65,16 @@ export default function TriviaGame(props) {
                 </div>
           </div> : 
           <div className="@container bg-zinc-700 flex flex-col m-auto" style={{transition: "0.5s ease-out"}}>
-            <h1 className="text-zinc-100 text-6xl text-center m-3 font-serif" style={{transition: "0.7s ease-out"}}>Trivia done!</h1>
-            <h2 className="text-zinc-100 text-4xl text-center m-3 font-serif" style={{transition: "0.7s ease-out"}}>You got: <span style={{color: score > 5 ? "lime" : "red", transition: "1s ease-in"}}>{score}</span> right!</h2>
-            <p className="text-center text-3xl text-zinc-100">Here are your wrong answers: </p>
+            <h1 className="text-zinc-100 text-6xl text-center m-5 font-serif" style={{transition: "0.7s ease-out"}}>Trivia done!</h1>
+            <h2 className="text-zinc-100 text-4xl text-center m-5 font-serif" style={{transition: "0.7s ease-out"}}>You got: <span style={{color: score > 5 ? "lime" : "red", transition: "1s ease-in"}}>{score}</span> right!</h2>
+            <p className="text-center text-2xl text-zinc-100 mb-5">Here are your wrong answers: </p>
               {wrongAnswers.map((item)=>(
-                <div className="flex flex-col justify-center my-5" style={{transition: "1.0s ease-out"}}>
-                  <h3 className="text-center text-xl text-zinc-100" style={{transition: "1.5s ease-out"}}>Question: {properString(item.question)}</h3>
+                <div className="flex flex-col justify-center my-2 m-auto bg-zinc-700 hover:-translate-y-0.5 hover:shadow-lg shadow-zinc-600 p-5 w-fit rounded-2xl transition-all ease-in-out" style={{transition: "1.0s ease-out"}}>
+                  <h3 className="text-center text-xl text-zinc-100" style={{transition: "1.5s ease-out"}}>{properString(item.question)}</h3>
+                  <p className="text-center text-md text-zinc-100" style={{transition: "1.5s ease-out"}}>Your Answer: <span className="text-red-500">{properString(item.user_choice)}</span></p>
                   <p className="text-center text-md text-zinc-100" style={{transition: "1.5s ease-out"}}>Right Answer: <span className="text-lime-500">{properString(item.correct_answer)}</span></p>
                 </div>
-              ))}
+              ))} 
           </div>
     );
 };
